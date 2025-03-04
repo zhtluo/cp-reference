@@ -1,4 +1,4 @@
-#define cp const point&
+#define cp const point &
 
 struct point {
   double x, y;
@@ -71,13 +71,13 @@ struct line {
 
 bool point_on_segment(cp a, cl b) {
   return sgn(det(a - b.s, b.t - b.s)) == 0 &&
-         sgn(dot(b.s - a, b.t - a)) <= 0;
+    sgn(dot(b.s - a, b.t - a)) <= 0;
 }
 
 bool two_side(cp a, cp b, cl c) {
   return sgn(det(a - c.s, c.t - c.s)) *
-             sgn(det(b - c.s, c.t - c.s)) <
-         0;
+    sgn(det(b - c.s, c.t - c.s)) <
+    0;
 }
 
 bool intersect_judgment(cl a, cl b) {
@@ -99,15 +99,16 @@ double point_to_line(cp a, cl b) {
 }
 
 point project_to_line(cp a, cl b) {
-  return b.s + (b.t - b.s) * (dot(a - b.s, b.t - b.s) /
-                              dis2(b.t, b.s));
+  return b.s +
+    (b.t - b.s) *
+    (dot(a - b.s, b.t - b.s) / dis2(b.t, b.s));
 }
 
 double point_to_segment(cp a, cl b) {
   if (sgn(dot(b.s - a, b.t - b.s) *
-          dot(b.t - a, b.t - b.s)) <= 0)
+        dot(b.t - a, b.t - b.s)) <= 0)
     return std::abs(det(b.t - b.s, a - b.s)) /
-           dis(b.s, b.t);
+      dis(b.s, b.t);
   return std::min(dis(a, b.s), dis(a, b.t));
 }
 
@@ -178,15 +179,15 @@ double circle_intersect_area(cc a, cc b) {
   }
   double x = (d * d + a.r * a.r - b.r * b.r) / (2 * d),
          t1 = acos(std::min(1., std::max(-1., x / a.r))),
-         t2 = acos(
-             std::min(1., std::max(-1., (d - x) / b.r)));
+         t2 =
+           acos(std::min(1., std::max(-1., (d - x) / b.r)));
   return a.r * a.r * t1 + b.r * b.r * t2 -
-         d * a.r * sin(t1);
+    d * a.r * sin(t1);
 }
 
 std::vector<point> circle_intersect(cc a, cc b) {
   if (a.c == b.c || cmp(dis(a.c, b.c), a.r + b.r) > 0 ||
-      cmp(dis(a.c, b.c), std::abs(a.r - b.r)) < 0)
+    cmp(dis(a.c, b.c), std::abs(a.r - b.r)) < 0)
     return std::vector<point>();
   point r = (b.c - a.c).unit();
   double d = dis(a.c, b.c);
@@ -194,7 +195,7 @@ std::vector<point> circle_intersect(cc a, cc b) {
          h = msqrt(sqr(a.r) - sqr(x));
   if (sgn(h) == 0) return std::vector<point>({a.c + r * x});
   return std::vector<point>({a.c + r * x - r.rot90() * h,
-                             a.c + r * x + r.rot90() * h});
+    a.c + r * x + r.rot90() * h});
 }
 
 std::vector<point> tangent(cp a, cc b) {

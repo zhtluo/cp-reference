@@ -29,12 +29,19 @@ def compress_code(input_code, max_length=80):
     for block in blocks:
         # Start with the first line (keep its indent)
         accumulator = block[0]
+        accumulator_indent = len(accumulator) - len(accumulator.lstrip())
         # Process subsequent lines in the block
         for line in block[1:]:
             stripped_line = line.strip()  # remove leading whitespace
-            if len(accumulator) + 1 + len(stripped_line) > max_length:
+            line_indent = len(line) - len(stripped_line)
+            if (
+                len(accumulator) + 1 + len(stripped_line)
+                > max_length
+                # or line_indent > accumulator_indent
+            ):
                 output_lines.append(accumulator)
                 accumulator = line
+                accumulator_indent = len(accumulator) - len(accumulator.lstrip())
             else:
                 accumulator += " " + stripped_line
         output_lines.append(accumulator)
