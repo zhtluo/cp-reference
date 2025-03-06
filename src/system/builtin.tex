@@ -1,0 +1,11 @@
+\begin{compactenum}
+\item \mintinline{cpp}|__builtin_clz|: Returns the number of leading 0-bits in x, starting at the most significant bit position. If x is 0, the result is undefined.
+\item \mintinline{cpp}|__builtin_ctz|: Returns the number of trailing 0-bits in x, starting at the least significant bit position. If x is 0, the result is undefined.
+\item \mintinline{cpp}|__builtin_clrsb|: Returns the number of leading redundant sign bits in x, i.e. the number of bits following the most significant bit that are identical to it. There are no special cases for 0 or other values.
+\item \mintinline{cpp}|__builtin_popcount|: Returns the number of 1-bits in x.
+\item \mintinline{cpp}|__builtin_parity|: Returns the parity of x, i.e. the number of 1-bits in x modulo 2.
+\item \mintinline{cpp}|__builtin_bswap16|, \mintinline{cpp}|__builtin_bswap32|, \mintinline{cpp}|__builtin_bswap64|: Returns x with the order of the bytes (8 bits as a group) reversed.
+\item \mintinline{cpp}|bitset::_Find_first(), bitset::_Find_next(idx)|: Finds \mintinline{cpp}|1| in a bitset.
+\item \mintinline{cpp}|roundq|: Rounds \mintinline{cpp}|__float128|.
+\end{compactenum}
+

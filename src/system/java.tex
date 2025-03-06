@@ -1,0 +1,222 @@
+\paragraph{Import}
+Libraries that are commonly used.
+
+\begin{minted}{java}
+import java.io.*;
+import java.lang.*;
+import java.math.*;
+import java.util.*;
+\end{minted}
+
+\paragraph{Input}
+\mintinline{java}|Scanner| is generally used to handle input.
+
+\begin{minted}{java}
+Scanner in = new Scanner(System.in);
+\end{minted}
+Or:
+
+\begin{minted}{java}
+Scanner in = new Scanner(new BufferedInputStream(System.in));
+\end{minted}
+Usage: \mintinline{java}|next + <typename>()|, \mintinline{java}|hasNext + <typename>()|.
+
+e.g. \mintinline{java}|in.nextInt()|, \mintinline{java}|in.nextBigInteger()|, \mintinline{java}|in.nextLine()|, etc.
+
+\paragraph{Output}
+Use \mintinline{java}|System.out| for output.
+
+\begin{minted}{java}
+System.out.print(/*...*/);
+System.out.println(/*...*/);
+System.out.printf(/*...*/);
+\end{minted}
+
+\paragraph{BigInteger}
+To convert to a \mintinline{java}|BigInteger|, use \mintinline{java}|BigInteger.valueOf(int)| or \mintinline{java}|BigInteger(String, radix)|.
+
+To convert from a \mintinline{java}|BigInteger|, use \mintinline{java}|.intValue()|, \mintinline{java}|.longValue()|, \mintinline{java}|.toString(radix)|.
+
+Common unary operations include \mintinline{java}|.abs()|, \mintinline{java}|.negate()|, \mintinline{java}|.not()|.
+
+Common binary operations include \mintinline{java}|.max|, \mintinline{java}|.min|, \mintinline{java}|.add|, \mintinline{java}|.subtract|, \mintinline{java}|.multiply|, \mintinline{java}|.divide|, \mintinline{java}|.remainder|, \mintinline{java}|.gcd|, \mintinline{java}|.modInverse|, \mintinline{java}|.and|, \mintinline{java}|.or|, \mintinline{java}|.xor|, \mintinline{java}|.shiftLeft(int)|, \mintinline{java}|.shiftRight(int)|, \mintinline{java}|.pow(int)|, \mintinline{java}|.compareTo|.
+
+Divide and remainder:
+
+\mintinline{java}|Biginteger[] .divideAndRemainder(Biginteger val)|.
+
+Power module: \mintinline{java}|.modPow(BigInteger exponent, module)|.
+
+Primality check: \mintinline{java}|.isProbablePrime(int certainty)|.
+
+Square root:
+
+\begin{minted}{java}
+public static BigInteger sqrt(BigInteger x) {
+	if (x.equals(BigInteger.ZERO) || x.equals(BigInteger.ONE)) return x;
+	BigInteger d = BigInteger.ZERO.setBit(x.bitLength() / 2);
+	BigInteger d2 = d;
+	for (; ; ) {
+		BigInteger y = d.add(x.divide(d)).shiftRight(1);
+		if (y.equals(d) || y.equals(d2)) return d.min(d2);
+		d2 = d; d = y; } }
+\end{minted}
+
+\paragraph{BigDecimal}
+Literally a \mintinline{java}|BigInteger| and a scale.
+
+When rounding, it is necessary to specify a \mintinline{java}|RoundingMode|, namely \mintinline{java}|RoundingMode.<mode>|, which includes: 
+
+\mintinline{java}|CEILING|, \mintinline{java}|DOWN|, \mintinline{java}|FLOOR|, \mintinline{java}|HALF_DOWN|, \mintinline{java}|HALF_EVEN|, \mintinline{java}|HALF_UP|, \mintinline{java}|UNNECESSARY|, \mintinline{java}|UP|.
+
+To convert to a \mintinline{java}|BigDecimal|, use \mintinline{java}|BigDecimal.valueOf(...)|, \mintinline{java}|BigDecimal(BigInteger, scale)| or \mintinline{java}|BigDecimal(String)|.
+
+To divide: \mintinline{java}|.divide(BigDecimal, scale, roundingmode)|.
+
+To set the scale: \mintinline{java}|.setScale(scale, roundingmode)|.
+
+To remove trailing zeroes: \mintinline{java}|.stripTrailingZeros()|.
+
+\paragraph{Array}
+Sort: \mintinline{java}|Arrays.sort(T[] a);|
+
+\mintinline{java}|Arrays.sort(T[] a, int fromIndex, int toIndex);|
+
+\mintinline{java}|Arrays.sort(T[] a, int fromIndex, int toIndex, Comperator <? super T> comperator);|
+
+\paragraph{PriorityQueue}
+An implementation of a min-heap.
+
+Add element: \mintinline{java}|add(E)|.
+
+Retrieve and pop element: \mintinline{java}|poll()|.
+
+Retrieve element: \mintinline{java}|peek()|.
+
+Size: \mintinline{java}|size()|.
+
+Clear: \mintinline{java}|clear()|.
+
+Comparator:
+
+\mintinline{java}|PriorityQueue <E>(int initcap, Comparator <? super E> comparator)|
+
+\paragraph{TreeMap}
+An implementation of a map. The entry is named 
+
+\mintinline{java}|Map.Entry <K, V>|.
+
+Retrieve key and value from an entry:
+
+\mintinline{java}|getKey|, \mintinline{java}|getValue()|, \mintinline{java}|setValue(V)|.
+
+Retrieve entry:
+
+\mintinline{java}|ceilingEntry|, \mintinline{java}|floorEntry|, \mintinline{java}|higherEntry|, \mintinline{java}|lowerEntry|.
+
+Simplified operations:
+
+\mintinline{java}|clear()|, \mintinline{java}|put(K, V)|, \mintinline{java}|get(K)|, \mintinline{java}|remove(K)|, \mintinline{java}|size()|.
+
+Comparator:
+
+\mintinline{java}|TreeMap <K, V>(Comparator <? super K> comparator)|.
+
+\paragraph{StringBuilder}
+
+Construction: \mintinline{java}|StringBuilder(String)|.
+
+Insertion: \mintinline{java}|append(...)|, \mintinline{java}|insert(offset, ...)|. \mintinline{java}|...| can be almost every type!
+
+Fetch: \mintinline{java}|charAt(int)|.
+
+Modification:
+
+\mintinline{java}|setCharAt(int, char)|, \mintinline{java}|delete(int, int)|, \mintinline{java}|reverse()|.
+
+Output: \mintinline{java}|length()|, \mintinline{java}|toString()|.
+
+\paragraph{String}
+Formatting: \mintinline{java}|String.format(String, ...)|.
+
+Case transform: \mintinline{java}|toLowerCase|, \mintinline{java}|toUpperCase|.
+
+\paragraph{Comparator}
+An example on a comparator.
+
+\begin{minted}{java}
+public class Main {
+	public class Point {
+		public int x; public int y;
+		public Point() {
+			x = 0;
+			y = 0; }
+		public Point(int xx, int yy) {
+			x = xx;
+			y = yy; } }
+	public class Cmp implements Comparator <Point> {
+		public int compare(Point a, Point b) {
+			if (a.x < b.x) return -1;
+			if (a.x == b.x) {
+				if (a.y < b.y) return -1;
+				if (a.y == b.y) return 0; }
+			return 1; } }
+	public static void main(String [] args) {
+		Cmp c = new Cmp();
+		TreeMap <Point, Point> t = new TreeMap <Point, Point>(c);
+		return; } }
+\end{minted}
+
+\paragraph{Comparable}
+An example to implement \mintinline{java}|Comparable|.
+
+\begin{minted}{java}
+public class Point implements Comparable <Point> {
+	public int x; public int y;
+	public Point() {
+		x = 0;
+		y = 0; }
+	public Point(int xx, int yy) {
+		x = xx;
+		y = yy; }
+	public int compareTo(Point p) {
+		if (x < p.x) return -1;
+		if (x == p.x) {
+			if (y < p.y) return -1;
+			if (y == p.y) return 0; }
+		return 1; }
+	public boolean equalTo(Point p) {
+		return(x == p.x && y == p.y); }
+	public int hashCode() {
+		return x + y; } }
+\end{minted}
+
+\paragraph{Fast IO}
+A class for faster IO.
+
+\begin{minted}{java}
+public class Main {
+	static class InputReader {
+		public BufferedReader reader;
+		public StringTokenizer tokenizer;
+		public InputReader(InputStream stream) {
+			reader = new BufferedReader(new InputStreamReader(stream), 32768);
+			tokenizer = null; }
+		public String next() {
+			while(tokenizer == null || !tokenizer.hasMoreTokens()) {
+				try {
+					String line = reader.readLine();
+					tokenizer = new StringTokenizer(line);
+				} catch(IOException e) {
+					throw new RuntimeException(e); } }
+			return tokenizer.nextToken(); }
+		public BigInteger nextBigInteger() {
+			return new BigInteger(next(), 10); /* radix */ }
+		public int nextInt() {
+			return Integer.parseInt(next()); }
+		public double nextDouble() {
+			return Double.parseDouble(next()); } }
+	public static void main(String[] args) {
+		InputReader in = new InputReader(System.in);
+	} }
+\end{minted}

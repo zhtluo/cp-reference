@@ -1,0 +1,32 @@
+This is an example to construct a pattern:
+
+\begin{minted}{cpp}
+std::string str = ("The the there");
+std::regex pattern ("(th|Th)[\\w]*", std::regex_constants::optimize | std::regex_constants::ECMAScript);
+std::smatch match;	//std::cmatch for char *
+\end{minted}
+
+Use \mintinline{cpp}|std::regex_match| to find exact matches:
+
+\begin{minted}{cpp}
+std::regex_match (str, match, pattern);
+\end{minted}
+
+Use \mintinline{cpp}|std::sregex_iterator| to search for patterns:
+
+\begin{minted}{cpp}
+auto mbegin = std::sregex_iterator (str.begin (), str.end (), pattern);
+auto mend = std::sregex_iterator ();
+std::cout << "Found " << std::distance (mbegin, mend) << " words:\n";
+for (std::sregex_iterator i = mbegin; i != mend; ++i) {
+	match = *i; /*...*/ }
+\end{minted}
+The whole match is in \mintinline{cpp}|match[0]|, and backreferences are in \mintinline{cpp}|match[i]| up to \mintinline{cpp}|match.size ()|. \mintinline{cpp}|match.prefix ()| and \mintinline{cpp}|match.suffix ()| give the prefix and the suffix. \mintinline{cpp}|match.length ()| gives length and \mintinline{cpp}|match.position ()| gives the position of the match.
+
+To replace a certain regular expression with another one, use \mintinline{cpp}|std::regex_replace|.
+
+\begin{minted}{cpp}
+std::regex_replace (str, pattern, "sh");
+\end{minted}
+where \mintinline{cpp}|$n| is the backreference, \mintinline{cpp}|$&| is the entire match, \mintinline{cpp}|$`| is the prefix, \mintinline{cpp}|$'| is the suffix, \mintinline{cpp}|$$| is the \mintinline{cpp}|$| sign.
+

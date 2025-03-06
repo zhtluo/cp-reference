@@ -1,5 +1,6 @@
-\documentclass[titlepage,letterpaper,10pt]{article}
+\documentclass[titlepage,letterpaper]{article}
 \usepackage[left=0.5in, right=0.5in, top=1in, bottom=.5in]{geometry}
+\usepackage[fontsize=8pt]{fontsize}
 \usepackage{titling}
 
 \usepackage{titlesec}
@@ -24,13 +25,19 @@
 \setmathfont{TeX Gyre Termes Math}
 \setmathfont{TeX Gyre Termes Math}[version = bold, FakeBold = 2.0]
 
-\usepackage{multicol}
+\usepackage{multicol, multirow}
 \usepackage{minted}
+\usepackage{algpseudocode}
 
-\title{Competitive Programming Reference}
-\author{Zhongtang Luo}
+\usepackage{mathtools}
+\def \bangle{ \atopwithdelims \langle \rangle}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\title{\Huge Competitive Programming Reference}
+\author{\Large Zhongtang Luo}
 \date{
-    \today \\
+    {\Large \today} \\
     \vspace{100pt}
     \noindent\rule{\textwidth}{1pt}\\
     \vspace{100pt}
@@ -48,7 +55,6 @@
 \fancyhead[L]{Competitive Programming Reference}
 \fancyhead[R]{Page \thepage}
 \renewcommand{\headrulewidth}{1pt}
-\makeatother
 
 \usepackage{hyperref}
 \usepackage{xurl}
@@ -56,14 +62,17 @@
 \usepackage{booktabs}
 
 \begin{document}
-    \setminted{fontsize=\small}
     \maketitle
     \linespread{0.8}\selectfont
     \begin{multicols}{2}
         \setcounter{tocdepth}{3}
-        \tableofcontents
         
-        \setminted{fontsize=\scriptsize}
+		{\large \tableofcontents}
+		
+		\newpage
+
+        \setminted{fontsize=\footnotesize}
+		\setminted{tabsize=2}
         \setminted{breaklines}
         \setminted{numbersep=1pt}
         \setminted{xleftmargin=0pt}
@@ -73,7 +82,16 @@
         \section{Environment}
             \subsection{.vimrc}
                 \input{src/environment/vimrc.tex}
-        
+		\section{Data Structure}
+			\subsection{Balanced tree}
+				% \subsubsection{Link-cut tree}
+				% 	\input{src/data-structure/balanced-tree/link-cut-tree.tex}
+				\subsubsection{Splay tree}
+					\input{src/data-structure/balanced-tree/splay.tex}
+			\subsection{KD tree}
+				\input{src/data-structure/kd-tree.tex}
+			\subsection{RMQ}
+				\input{src/data-structure/rmq.tex}
         \section{Geometry}
             \input{src/geometry/geometry.tex}
             \subsection{2D geometry}
@@ -98,5 +116,173 @@
 					\input{src/geometry/2d-geometry/triangle-center.tex}
 				\subsubsection{Union of circles}
 					\input{src/geometry/2d-geometry/union-of-circles.tex}
+			\subsection{3D geometry}
+				\subsubsection{3D point}
+					\input{src/geometry/3d-geometry/3d-point.tex}
+				\subsubsection{3D line}
+					\input{src/geometry/3d-geometry/3d-line.tex}
+				\subsubsection{3D convex hull}
+					\input{src/geometry/3d-geometry/3d-convex-hull.tex}
+		\section{Graph}
+			\input{src/graph/graph.tex}
+			\subsection{Characteristic}
+				\subsubsection{Chordal graph}
+					\input{src/graph/characteristic/chordal-graph.tex}
+				\subsubsection{Euler characteristic}
+					\input{src/graph/characteristic/euler-characteristic.tex}
+			\subsection{Clique}
+				\subsubsection{DN maximum clique}
+					\input{src/graph/clique/dn-maximum-clique.tex}
+			\subsection{Cut}
+				\subsubsection{2-SAT}
+					\input{src/graph/cut/2-sat.tex}
+				\subsubsection{Dominator tree}
+					\input{src/graph/cut/dominator-tree.tex}
+				\subsubsection{Stoer Wagner algorithm}
+					\input{src/graph/cut/stoer-wagner-algorithm.tex}
+				\subsubsection{Tarjan}
+					\input{src/graph/cut/tarjan.tex}
+			\subsection{Flow}
+				\subsubsection{Maximum flow}
+					\input{src/graph/flow/maximum-flow.tex}
+				\subsubsection{Minimum cost flow}
+					\input{src/graph/flow/minimum-cost-flow.tex}
+			\subsection{Matching}
+				\input{src/graph/matching/matching.tex}
+				\subsubsection{Blossom algorithm}
+					\input{src/graph/matching/blossom-algorithm.tex}
+				\subsubsection{Blossom algorithm (weighted)}
+					\input{src/graph/matching/blossom-algorithm-weighted.tex}
+				\subsubsection{Hopcoft-Karp algorithm}
+					\input{src/graph/matching/hopcoft-karp-algorithm.tex}
+				\subsubsection{Kuhn-Munkres algorithm}
+					\input{src/graph/matching/kuhn-munkres-algorithm.tex}
+			\subsection{Path}
+				\subsubsection{K-shortest path}
+					\input{src/graph/path/k-shortest-path.tex}
+				\subsubsection{Lindström-Gessel-Viennot lemma}
+					\input{src/graph/path/lindstrom-gessel-viennot-lemma.tex}
+			\subsection{Tree}
+				\subsubsection{Optimum branching}
+					\input{src/graph/tree/optimum-branching.tex}
+				\subsubsection{Prufer sequence}
+					\input{src/graph/tree/prufer-sequence.tex}
+				\subsubsection{Spanning tree counting}
+					\input{src/graph/tree/spanning-tree-counting.tex}
+				\subsubsection{Tree hash}
+					\input{src/graph/tree/tree-hash.tex}
+		\section{Mathematics}
+			\subsection{Computation}
+				\subsubsection{Adaptive Simpson's method}
+					\input{src/mathematics/computation/adaptive-simpsons-method.tex}
+				\subsubsection{Dirichlet convolution}
+					\input{src/mathematics/computation/dirichlet-convolution.tex}
+				\subsubsection{Euclidean-like algorithm}
+					\input{src/mathematics/computation/euclidean-like-algorithm.tex}
+				\subsubsection{Extended Eratosthenes sieve}
+					\input{src/mathematics/computation/extended-eratosthenes-sieve.tex}
+				\subsubsection{Fast power module}
+					\input{src/mathematics/computation/fast-power-module.tex}
+				\subsubsection{Lucas's theorem}
+					\input{src/mathematics/computation/lucass-theorem.tex}
+				\subsubsection{Mobius inversion}
+					\input{src/mathematics/computation/mobius-inversion.tex}
+				\subsubsection{Zeller’s congruence}
+					\input{src/mathematics/computation/zellers-congruence.tex}
+			\subsection{Dynamic programming}
+				\input{src/mathematics/dynamic-programming/dynamic-programming.tex}
+			\subsection{Equality and inequality}
+				\subsubsection{Baby step giant step algorithm}
+					\input{src/mathematics/equality-and-inequality/baby-step-giant-step.tex}
+				\subsubsection{Chinese remainder theorem}
+					\input{src/mathematics/equality-and-inequality/chinese-remainder-theorem.tex}
+				\subsubsection{Extended Euclidean algorithm}
+					\input{src/mathematics/equality-and-inequality/extended-euclidean-algorithm.tex}
+				\subsubsection{Pell equation}
+					\input{src/mathematics/equality-and-inequality/pell-equation.tex}
+				\subsubsection{Quadric residue}
+					\input{src/mathematics/equality-and-inequality/quadric-residue.tex}
+				\subsubsection{Simplex}
+					\input{src/mathematics/equality-and-inequality/simplex.tex}
+			\subsection{Game theory}
+				\input{src/mathematics/game-theory/game-theory.tex}
+			\subsection{Group theory}
+				\subsubsection{Pólya enumeration theorem}
+					\input{src/mathematics/computation/polya-enumeration-theorem.tex}
+				\subsubsection{Schreier Sims}
+					\input{src/mathematics/group-theory/schreier-sims.tex}
+			\subsection{Machine learning}
+				\subsubsection{Neural network}
+					\input{src/mathematics/machine-learning/neural-network.tex}
+			\subsection{Primality}
+				\subsubsection{Miller Rabin primality test}
+					\input{src/mathematics/primality/miller-rabin-primality-test.tex}
+				\subsubsection{Pollard's Rho algorithm}
+					\input{src/mathematics/primality/pollards-rho-algorithm.tex}
+				\subsubsection{SQUFOF}
+					\input{src/mathematics/primality/squfof.tex}
+			\subsection{Recurrence relation}
+				\subsubsection{Berlekamp Massey algorithm}
+					\input{src/mathematics/recurrence-relation/berlekamp-massey-algorithm.tex}
+				\subsubsection{Linear Recurrence}
+					\input{src/mathematics/recurrence-relation/linear-recurrence.tex}
+			\subsection{Sequence manipulation}
+				\subsubsection{Discrete Fourier transform}
+					\input{src/mathematics/sequence-manipulation/discrete-fourier-transform.tex}
+				\subsubsection{Fast Walsh-Hadamard transform}
+					\input{src/mathematics/sequence-manipulation/fast-walsh-hadamard-transform.tex}
+				\subsubsection{Number theoretic transform}
+					\input{src/mathematics/sequence-manipulation/number-theoretic-transform.tex}
+				\subsubsection{Polynomial operation}
+					\input{src/mathematics/sequence-manipulation/polynomial-operation.tex}
+		\section{String}
+			\subsection{Decomposition}
+				\subsubsection{Lyndon word}
+					\input{src/string/decomposition/lyndon-word.tex}
+			\subsection{Matching}
+				\subsubsection{Exkmp}
+					\input{src/string/matching/exkmp.tex}
+				\subsubsection{Minimal string rotation}
+					\input{src/string/matching/minimal-string-rotation.tex}
+			\subsection{Palindrome}
+				\subsubsection{Manacher}
+					\input{src/string/palindrome/manacher.tex}
+				\subsubsection{Palindromic tree}
+					\input{src/string/palindrome/palindromic-tree.tex}
+			\subsection{Suffix}
+				\subsubsection{Suffix array (SAIS)}
+					\input{src/string/suffix/suffix-array-sais.tex}
+				\subsubsection{Suffix automaton}
+					\input{src/string/suffix/suffix-automaton.tex}
+		\section{System}
+			\subsection{Builtin functions}
+				\input{src/system/builtin.tex}
+			\subsection{Container memory release}
+				\input{src/system/container-memory-release.tex}
+			\subsection{Fast IO}
+				\input{src/system/fast-io.tex}
+			\subsection{Formatting}
+				\input{src/system/formatting.tex}
+			\subsection{Java}
+				\input{src/system/java.tex}
+			\subsection{Random numbers}
+				\input{src/system/random-numbers.tex}
+			\subsection{Regular expression}
+				\input{src/system/regular-expression.tex}
+			\subsection{Stack hack}
+				\input{src/system/stack-hack.tex}
+			\subsection{Time hack}
+				\input{src/system/time-hack.tex}
+		\section{Appendix}
+			\subsection{Table of formulae}
+				\input{src/appendix/table-of-formulae.tex}
+			\subsection{Table of integrals}
+				\input{src/appendix/table-of-integrals.tex}
+			\subsection{Table of range}
+				\input{src/appendix/table-of-range.tex}
+			\subsection{Table of regular expression}
+				\input{src/appendix/table-of-regular-expression.tex}
+			\subsection{Table of operator precedence}
+				\input{src/appendix/table-of-operator-precedence.tex}
     \end{multicols}
 \end{document}

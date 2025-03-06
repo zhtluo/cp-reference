@@ -1,0 +1,13 @@
+Maximum matching for general weighted graphs in $O(n^3)$ (1-based).
+
+Usage: 
+\begin{compactenum}
+\item Set $n$ to the size of the vertices.
+\item Execute \mintinline{cpp}|init|.
+\item Set \mintinline{cpp}|g[][].w| to the weight of the edges.
+\item Execute \mintinline{cpp}|solve|.
+\item The first result is the answer, the second one is the number of matching pairs. Obtain the exact matching with \mintinline{cpp}|match[]|.
+\end{compactenum}
+
+\inputminted{cpp}{src/graph/matching/blossom-algorithm-weighted.cpp.com}
+

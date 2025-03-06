@@ -1,0 +1,9 @@
+Ensure that \mintinline{cpp}|str[n]| $\geq 0$ is the unique lexicographically smallest character in \mintinline{cpp}|str|.
+
+\begin{compactenum}
+\item \mintinline{cpp}|sa[i]|: The beginning position of the $i$-th smallest suffix. Note that \mintinline{cpp}|sa[0]=n|.
+\item \mintinline{cpp}|rk[i]|: The rank of the suffix beginning at position $i$.
+\item \mintinline{cpp}|ht[i]|: The longest common prefix of \mintinline{cpp}|sa[i]| and \mintinline{cpp}|sa[i - 1]|.
+\end{compactenum}
+
+\inputminted{cpp}{src/string/suffix/suffix-array-sais.cpp.com}

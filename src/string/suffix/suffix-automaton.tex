@@ -1,0 +1,11 @@
+Usage:
+\begin{compactenum}
+\item \mintinline{cpp}|head|: The first state.
+\item \mintinline{cpp}|tail|: The last state. Terminating states can be reached via visiting the ancestors of tail.
+\item \mintinline{cpp}|len|: The longest length of the string in the state. The shortest one is \mintinline{cpp}|parent -> len + 1|.
+\item \mintinline{cpp}|first|: The first location in the string where the state can be reached.
+\item \mintinline{cpp}|cnt|: The number of times a particular substring $S$ of substrings corresponding to the state appears.
+\item \mintinline{cpp}|parent|: The parent link. A larger set of all matching possibilities.
+\item \mintinline{cpp}|go|: The automaton link.
+\end{compactenum}
+\inputminted{cpp}{src/string/suffix/suffix-automaton.cpp.com}
