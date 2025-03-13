@@ -4,6 +4,7 @@ struct kd_tree {
   struct point {
     int data[MAXK], id;
   } p[MAXN];
+
   struct kd_node {
     int l, r;
     point p, dmin, dmax;
@@ -28,9 +29,10 @@ struct kd_tree {
             (dmin.data[i] - rhs.data[i]),
           1ll * (dmax.data[i] - rhs.data[i]) *
             (dmax.data[i] - rhs.data[i]));
-        //				ret += std::max (0, rhs.data[i] -
-        //dmax.data[i]) + std::max (0, dmin.data[i] -
-        //rhs.data[i]);
+
+        /* ret += std::max (0, rhs.data[i] -
+         * dmax.data[i]) + std::max (0, dmin.data[i] -
+         * rhs.data[i]); */
       }
       return ret;
     }
@@ -42,12 +44,15 @@ struct kd_tree {
             std::abs(dmax.data[i] - rhs.data[i]));
         ret += 1ll * tmp * tmp;
       }
-      //				ret += std::max (std::abs (rhs.data[i] -
-      //dmax.data[i]) + std::abs (rhs.data[i] -
-      //dmin.data[i])); }
+
+      /* ret += std::max (std::abs (rhs.data[i] -
+       * dmax.data[i]) + std::abs (rhs.data[i] -
+       * dmin.data[i])); */
+
       return ret;
     }
   } tree[MAXN * 4];
+
   struct result {
     long long dist;
     point d;
@@ -68,14 +73,18 @@ struct kd_tree {
     for (int i = 0; i < k; ++i)
       ret += 1ll * (a.data[i] - b.data[i]) *
         (a.data[i] - b.data[i]);
-    //		for (int i = 0; i < k; ++i) ret += std::abs
-    //(a.data[i] - b.data[i]);
+
+    /* for (int i = 0; i < k; ++i) ret += std::abs
+     * (a.data[i] - b.data[i]); */
+
     return ret;
   }
+
   int alloc() {
     tree[size].l = tree[size].r = -1;
     return size++;
   }
+
   void build(
     const int &depth, int &rt, const int &l, const int &r) {
     if (l > r) return;
@@ -91,12 +100,14 @@ struct kd_tree {
     if (~tree[rt].l) tree[rt].merge(tree[tree[rt].l], k);
     if (~tree[rt].r) tree[rt].merge(tree[tree[rt].r], k);
   }
+
   std::priority_queue<result, std::vector<result>,
     std::less<result>>
     heap_l;
   std::priority_queue<result, std::vector<result>,
     std::greater<result>>
     heap_r;
+
   void _min_kth(const int &depth, const int &rt,
     const int &m, const point &d) {
     result tmp = result(sqrdist(tree[rt].p, d), tree[rt].p);
@@ -119,6 +130,7 @@ struct kd_tree {
         tree[y].min_dist(d, k) < heap_l.top().dist))
       _min_kth((depth + 1) % k, y, m, d);
   }
+
   void _max_kth(const int &depth, const int &rt,
     const int &m, const point &d) {
     result tmp = result(sqrdist(tree[rt].p, d), tree[rt].p);
@@ -141,17 +153,20 @@ struct kd_tree {
         tree[y].max_dist(d, k) >= heap_r.top().dist))
       _max_kth((depth + 1) % k, y, m, d);
   }
+
   void init(int n, int k) {
     this->k = k;
     size = 0;
     int rt = 0;
     build(0, rt, 0, n - 1);
   }
+
   result min_kth(const point &d, const int &m) {
     heap_l = decltype(heap_l)();
     _min_kth(0, 0, m, d);
     return heap_l.top();
   }
+
   result max_kth(const point &d, const int &m) {
     heap_r = decltype(heap_r)();
     _max_kth(0, 0, m, d);

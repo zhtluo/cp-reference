@@ -13,6 +13,7 @@ struct node {
       if (c[t]) size += c[t]->size;
   }
 };
+
 template <class T>
 struct reversible_node : node<T> {
   int r;
@@ -33,6 +34,7 @@ struct reversible_node : node<T> {
     r = r ^ 1;
   }
 };
+
 template <class T, int MAXSIZE = 500000>
 struct tree {
   T pool[MAXSIZE + 2];

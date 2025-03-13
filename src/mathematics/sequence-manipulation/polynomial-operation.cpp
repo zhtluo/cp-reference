@@ -1,6 +1,7 @@
 template <int MAXN = 1000000>
 struct polynomial {
   ntt<MAXN> tr;
+  
   void inverse(int *a, int *b, int n, int mod, int prt) {
     static int c[MAXN];
     b[0] = ::inverse(a[0], mod);
@@ -18,6 +19,7 @@ struct polynomial {
       std::fill(b + m, b + m + m, 0);
     }
   }
+  
   void sqrt(int *a, int *b, int n, int mod, int prt) {
     static int d[MAXN], ib[MAXN];
     b[0] = 1;
@@ -39,6 +41,7 @@ struct polynomial {
       std::fill(b + m, b + m + m, 0);
     }
   }
+  
   void divide(int *a, int n, int *b, int m, int *d, int *r,
     int mod, int prt) {
     static int u[MAXN], v[MAXN];

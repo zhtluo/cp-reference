@@ -2,8 +2,11 @@ template <int MAXN = 1200000>
 struct sa {
   int sa[MAXN], rk[MAXN], ht[MAXN], s[MAXN << 1],
     t[MAXN << 1], p[MAXN], cnt[MAXN], cur[MAXN];
+
 #define push_s(x) sa[cur[s[x]]--] = x
+
 #define push_l(x) sa[cur[s[x]]++] = x
+
 #define induced_sort(v)                               \
   std::fill_n(sa, n, -1);                             \
   std::fill_n(cnt, m, 0);                             \
@@ -17,6 +20,7 @@ struct sa {
   for (int i = 0; i < m; ++i) cur[i] = cnt[i] - 1;    \
   for (int i = n - 1; ~i; --i)                        \
     if (sa[i] > 0 && !t[sa[i] - 1]) push_s(sa[i] - 1)
+
   void sais(int n, int m, int *s, int *t, int *p) {
     int n1 = t[n - 1] = 0, ch = rk[0] = -1, *s1 = s + n;
     for (int i = n - 2; ~i; --i)
@@ -44,6 +48,7 @@ struct sa {
     for (int i = 0; i < n1; ++i) s1[i] = p[sa[i]];
     induced_sort(s1);
   }
+
   template <typename T>
   int map_char_to_int(int n, const T *str) {
     int m = *std::max_element(str, str + n);
@@ -53,6 +58,7 @@ struct sa {
     for (int i = 0; i < n; ++i) s[i] = rk[str[i]] - 1;
     return rk[m];
   }
+
   template <typename T>
   void suffix_array(int n, const T *str) {
     int m = map_char_to_int(++n, str);

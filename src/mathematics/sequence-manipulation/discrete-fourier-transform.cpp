@@ -2,6 +2,7 @@ template <int MAXN = 1000000>
 struct dft {
   typedef std::complex<double> complex;
   complex e[2][MAXN];
+
   int init(int n) {
     int len = 1;
     for (; len <= 2 * n; len <<= 1);
@@ -13,6 +14,7 @@ struct dft {
     }
     return len;
   }
+
   void solve(complex *a, int n, int f) {
     for (int i = 0, j = 0; i < n; ++i) {
       if (i > j) std::swap(a[i], a[j]);

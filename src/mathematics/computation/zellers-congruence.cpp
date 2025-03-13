@@ -6,6 +6,7 @@ int get_id(int y, int m, int d) {
   return 365 * y + y / 4 - y / 100 + y / 400 +
     (153 * (m - 3) + 2) / 5 + d - 307;
 }
+
 std::tuple<int, int, int> date(int id) {
   int x = id + 1789995, n, i, j, y, m, d;
   n = 4 * x / 146097;
