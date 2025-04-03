@@ -1,14 +1,19 @@
-struct berlekamp - massey {
+struct berlekamp_massey {
   struct poly {
     std::vector<int> a;
+
     poly() { a.clear(); }
+
     poly(std::vector<int> &a) : a(a) {}
+
     int length() const { return a.size(); }
+
     poly move(int d) {
       std::vector<int> na(d, 0);
       na.insert(na.end(), a.begin(), a.end());
       return poly(na);
     }
+
     int calc(std::vector<int> &d, int pos) {
       int ret = 0;
       for (int i = 0; i < (int)a.size(); ++i) {
@@ -18,6 +23,7 @@ struct berlekamp - massey {
       }
       return ret;
     }
+
     poly operator-(const poly &b) {
       std::vector<int> na(
         std::max(this->length(), b.length()));
@@ -29,6 +35,7 @@ struct berlekamp - massey {
       return poly(na);
     }
   };
+
   poly operator*(const int &c, const poly &p) {
     std::vector<int> na(p.length());
     for (int i = 0; i < (int)na.size(); ++i) {
@@ -36,6 +43,7 @@ struct berlekamp - massey {
     }
     return na;
   }
+
   std::vector<int> solve(vector<int> a) {
     int n = a.size();
     poly s, b;

@@ -3,14 +3,18 @@ struct union_circle {
   int C;
   circle c[MAXN];
   double area[MAXN];
+
   struct event {
     point p;
     double ang;
     int delta;
+
     event(cp p = point(), double ang = 0, int delta = 0)
         : p(p), ang(ang), delta(delta) {}
+
     bool operator<(const event &a) { return ang < a.ang; }
   };
+
   void addevent(
     cc a, cc b, std::vector<event> &evt, int &cnt) {
     double d2 = dis2(a.c, b.c),
@@ -28,15 +32,19 @@ struct union_circle {
     evt.emplace_back(q0, ang0, -1);
     cnt += ang1 > ang0;
   }
+
   bool same(cc a, cc b) {
     return sgn(dis(a.c, b.c)) == 0 && sgn(a.r - b.r) == 0;
   }
+
   bool overlap(cc a, cc b) {
     return sgn(a.r - b.r - dis(a.c, b.c)) >= 0;
   }
+
   bool intersect(cc a, cc b) {
     return sgn(dis(a.c, b.c) - a.r - b.r) < 0;
   }
+
   void solve() {
     std::fill(area, area + C + 2, 0);
     for (int i = 0; i < C; ++i) {

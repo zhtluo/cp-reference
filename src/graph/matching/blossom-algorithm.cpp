@@ -3,21 +3,26 @@ struct blossom {
   int match[MAXN], d[MAXN], fa[MAXN], c1[MAXN], c2[MAXN],
     v[MAXN], q[MAXN];
   int *qhead, *qtail;
+
   struct {
     int fa[MAXN];
+
     void init(int n) {
       for (int i = 0; i < n; i++) fa[i] = i;
     }
+
     int find(int x) {
       if (fa[x] != x) fa[x] = find(fa[x]);
       return fa[x];
     }
+
     void merge(int x, int y) {
       x = find(x);
       y = find(y);
       fa[x] = y;
     }
   } ufs;
+
   void solve(int x, int y) {
     if (x == y) return;
     if (d[y] == 0) {
@@ -31,6 +36,7 @@ struct blossom {
       match[c2[y]] = c1[y];
     }
   }
+
   int lca(int x, int y, int root) {
     x = ufs.find(x);
     y = ufs.find(y);
@@ -45,6 +51,7 @@ struct blossom {
     v[y] = -1;
     return x;
   }
+
   void contract(int x, int y, int b) {
     for (int i = ufs.find(x); i != b; i = ufs.find(fa[i])) {
       ufs.merge(i, b);
@@ -55,6 +62,7 @@ struct blossom {
       }
     }
   }
+
   bool bfs(
     int root, int n, const edge_list<MAXN, MAXM> &e) {
     ufs.init(n);
@@ -92,6 +100,7 @@ struct blossom {
     }
     return 0;
   }
+
   int solve(int n, const edge_list<MAXN, MAXM> &e) {
     std::fill(fa, fa + n, 0);
     std::fill(c1, c1 + n, 0);

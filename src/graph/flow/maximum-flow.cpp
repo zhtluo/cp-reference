@@ -3,11 +3,14 @@ struct isap {
   struct flow_edge_list {
     int size, begin[MAXN], dest[MAXM], next[MAXM],
       flow[MAXM];
+
     void clear(int n) {
       size = 0;
       std::fill(begin, begin + n, -1);
     }
+
     flow_edge_list(int n = MAXN) { clear(n); }
+
     void add_edge(int u, int v, int f) {
       dest[size] = v;
       next[size] = begin[u];
@@ -19,8 +22,10 @@ struct isap {
       begin[v] = size++;
     }
   };
+
   int pre[MAXN], d[MAXN], gap[MAXN], cur[MAXN], que[MAXN],
     vis[MAXN];
+
   int solve(flow_edge_list &e, int n, int s, int t) {
     for (int i = 0; i < n; ++i) {
       pre[i] = d[i] = gap[i] = vis[i] = 0;
@@ -84,16 +89,20 @@ struct isap {
     return maxflow;
   }
 };
+
 template <int MAXN = 1000, int MAXM = 100000>
 struct dinic {
   struct flow_edge_list {
     int size, begin[MAXN], dest[MAXM], next[MAXM],
       flow[MAXM];
+
     void clear(int n) {
       size = 0;
       std::fill(begin, begin + n, -1);
     }
+
     flow_edge_list(int n = MAXN) { clear(n); }
+
     void add_edge(int u, int v, int f) {
       dest[size] = v;
       next[size] = begin[u];
@@ -105,7 +114,9 @@ struct dinic {
       begin[v] = size++;
     }
   };
+
   int n, s, t, d[MAXN], w[MAXN], q[MAXN];
+
   int bfs(flow_edge_list &e) {
     std::fill(d, d + n, -1);
     int l, r;
@@ -116,6 +127,7 @@ struct dinic {
           d[e.dest[k]] = d[q[l]] + 1, q[++r] = e.dest[k];
     return ~d[t] ? 1 : 0;
   }
+
   int dfs(flow_edge_list &e, int u, int ext) {
     if (u == t) return ext;
     int k = w[u], ret = 0;
@@ -133,6 +145,7 @@ struct dinic {
     if (!~k) d[u] = -1;
     return ret;
   }
+
   int solve(flow_edge_list &e, int n_, int s_, int t_) {
     int ans = 0;
     n = n_;

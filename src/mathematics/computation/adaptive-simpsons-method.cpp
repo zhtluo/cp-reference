@@ -3,6 +3,7 @@ struct simpson {
     double l, double r, double fl, double fm, double fr) {
     return (fl + 4 * fm + fr) * (r - l) / 6;
   }
+
   double solve(double (*f)(double), double l, double m,
     double r, double eps, double fl, double fm, double fr,
     double a) {
@@ -15,6 +16,7 @@ struct simpson {
     return solve(f, l, lm, m, eps / 2, fl, flm, fm, left) +
       solve(f, m, rm, r, eps / 2, fm, frm, fr, right);
   }
+
   double solve(
     double (*f)(double), double l, double r, double eps) {
     double m = l + (r - l) / 2;
@@ -22,4 +24,4 @@ struct simpson {
     return solve(
       f, l, m, r, eps, fl, fm, fr, area(l, r, fl, fm, fr));
   }
-}
+};

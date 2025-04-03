@@ -1,11 +1,14 @@
 struct Node {
   int son[2], fa, num, pos, rev;
 } node[maxn];
+
 int n, m, ans, top, q[maxn];
+
 inline bool root(int x) {
   return node[node[x].fa].son[0] != x &&
     node[node[x].fa].son[1] != x;
 }
+
 void update(int x) {
   int left = node[x].son[0], right = node[x].son[1];
   node[x].pos = x;
@@ -14,6 +17,7 @@ void update(int x) {
   if (node[node[right].pos].num > node[node[x].pos].num)
     node[x].pos = node[right].pos;
 }
+
 void down(int x) {
   int left = node[x].son[0], right = node[x].son[1];
   if (node[x].rev) {
@@ -23,6 +27,7 @@ void down(int x) {
     std::swap(node[x].son[0], node[x].son[1]);
   }
 }
+
 void rotate(int x) {
   int y = node[x].fa, z = node[y].fa, left, right;
   if (node[y].son[0] == x)
@@ -45,6 +50,7 @@ void rotate(int x) {
   update(y);
   update(x);
 }
+
 void splay(int x) {
   top = 0;
   q[++top] = x;
@@ -63,6 +69,7 @@ void splay(int x) {
   }
   update(x);
 }
+
 void access(int x) {
   int t = 0;
   while (x) {
@@ -72,15 +79,18 @@ void access(int x) {
     x = node[x].fa;
   }
 }
+
 void makeroot(int x) {
   access(x);
   splay(x);
   node[x].rev ^= 1;
 }
+
 void link(int x, int y) {
   makeroot(x);
   node[x].fa = y;
 }
+
 void cut(int x, int y) {
   makeroot(x);
   access(y);

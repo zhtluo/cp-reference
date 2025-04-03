@@ -3,7 +3,7 @@ struct ntt {
   int MOD[3] = {1045430273, 1051721729, 1053818881},
       PRT[3] = {3, 6, 7};
   int exp[LOGN][MAXN][2];
-  
+
   void init(int n, int mod = 998244353, int prt = 3) {
     for (int i = 2, cnt = 0; i <= n; i <<= 1, ++cnt) {
       exp[cnt][0][0] = exp[cnt][0][1] = 1;
@@ -15,7 +15,7 @@ struct ntt {
             exp[cnt][1][t] % mod);
     }
   }
-  
+
   void solve(
     int *a, int n, int f = 0, int mod = 998244353) {
     for (int i = 0, j = 0; i < n; ++i) {

@@ -2,9 +2,11 @@
 #define _                     \
   __ __inline __attribute__(( \
     __gnu_inline__, __always_inline__, __artificial__))
+
 namespace io {
 const int SIZE = 1000000;
 static char buf[SIZE + 1], *p = buf + SIZE;
+
 template <class t>
 _ bool read_int(t &x) {
   register int f = 0, sgn = 0;
@@ -18,6 +20,7 @@ _ bool read_int(t &x) {
   if (sgn) x = -x;
   return f;
 }
+
 _ int read_str(char *x, int len, char d = '\n') {
   register int cnt = 0;
   while ((*p ||
@@ -28,10 +31,12 @@ _ int read_str(char *x, int len, char d = '\n') {
   if (*p == d) ++p;
   return cnt;
 }
+
 // Set f to true to force an output (typically at the last
 // write command).
 const int WSIZE = 1000000;
 static char wbuf[2 * WSIZE], *q = wbuf;
+
 __ void write(bool f, const char *str, ...) {
   va_list args;
   va_start(args, str);

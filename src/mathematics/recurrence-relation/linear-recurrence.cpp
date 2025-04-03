@@ -3,6 +3,7 @@ struct linear_rec {
   int n;
   std::vector<int> first, trans;
   std::vector<std::vector<int>> bin;
+
   std::vector<int> add(
     std::vector<int> &a, std::vector<int> &b) {
     std::vector<int> result(n * 2 + 1, 0);
@@ -21,6 +22,7 @@ struct linear_rec {
     result.erase(result.begin() + n + 1, result.end());
     return result;
   }
+
   linear_rec(const std::vector<int> &first,
     const std::vector<int> &trans)
       : first(first), trans(trans) {
@@ -31,6 +33,7 @@ struct linear_rec {
     for (int i = 1; i < LOG; ++i)
       bin.push_back(add(bin[i - 1], bin[i - 1]));
   }
+
   int solve(int k) {
     std::vector<int> a(n + 1, 0);
     a[0] = 1;

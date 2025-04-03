@@ -3,6 +3,7 @@ struct polygon_circle_intersect {
     double c = (2.0 * r * r - dis2(a, b)) / (2.0 * r * r);
     return r * r * acos(c) / 2.0;
   }
+
   double area(cp a, cp b, const double &r) {
     double dA = dot(a, a), dB = dot(b, b),
            dC = point_to_segment(point(), line(a, b));
@@ -23,6 +24,7 @@ struct polygon_circle_intersect {
       return det(a, ret[1]) / 2.0 +
         sector_area(ret[1], tB, r);
   }
+
   double solve(const std::vector<point> &p, cc c) {
     double ret = 0.0;
     for (int i = 0; i < (int)p.size(); ++i) {

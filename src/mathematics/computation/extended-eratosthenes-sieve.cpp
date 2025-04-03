@@ -3,25 +3,31 @@ struct ees {
   int co[SN], prime[SN], psize, sn;
   long long powa[D + 1][SN], powb[D + 1][SN];
   long long funca[SN], funcb[SN];
+
   long long pow(long long x, int n) {
     long long res = 1;
     for (int i = 0; i < n; ++i) res *= x;
     return res;
   }
+
   long long pre_pow(long long x, int n) {
     if (n == 0) return x;
     if (n == 1) return (1 + x) * x / 2;
     if (n == 2) return (1 + 2 * x) * (1 + x) * x / 6;
     return 0;
   }
+
   long long pfunc(long long p) { return -1; }
+
   long long cfunc(long long k, long long p) { return 0; }
+
   void assemble() {
     for (int i = 1; i <= sn; ++i) {
       funca[i] = -powa[0][i];
       funcb[i] = -powb[0][i];
     }
   }
+
   void init(long long n) {
     sn = std::max((int)(ceil(sqrt(n)) + 1), 2);
     psize = 0;
@@ -57,6 +63,7 @@ struct ees {
     }
     assemble();
   }
+
   void dfs(int x, int f, long long mul, long long val,
     long long n, long long &res) {
     for (; x < psize && mul * prime[x] * prime[x] <= n;
@@ -73,6 +80,7 @@ struct ees {
           funca[f]);
     if (f > 1 && mul % (f * f) == 0) res += val;
   }
+
   long long solve(long long n) {
     if (n == 0) return 0;
     long long res = 1;

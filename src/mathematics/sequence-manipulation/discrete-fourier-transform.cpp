@@ -33,6 +33,7 @@ struct dft {
         a[i] = complex(a[i].real() / n, a[i].imag());
     }
   }
+
   void multiply(int *a, int *b, int *c, int n, int mod) {
     const int L = 15, MASK = (1 << L) - 1;
     static complex A[MAXN], B[MAXN], C[MAXN], D[MAXN];

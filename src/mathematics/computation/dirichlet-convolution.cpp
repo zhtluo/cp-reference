@@ -3,6 +3,7 @@ struct prefix_mul {
   typedef long long (*func)(long long);
   func p_f, p_g, p_c;
   long long mod, th, inv, n, mem[CUBEN];
+
   prefix_mul(func p_f, func p_g, func p_c, long long th,
     long long mod, long long inv)
       : p_f(p_f),
@@ -11,6 +12,7 @@ struct prefix_mul {
         th(th),
         mod(mod),
         inv(inv) {}
+
   void init(long long n) {
     prefix_mul::n = n;
     for (long long i = 1, la; i <= n; i = la + 1) {
@@ -28,6 +30,7 @@ struct prefix_mul {
       if (inv != 1) ans = ans * inv % mod;
     }
   }
+
   long long ans(long long x) {
     if (n / x < th) return p_f(n / x);
     return mem[n / (n / x)];

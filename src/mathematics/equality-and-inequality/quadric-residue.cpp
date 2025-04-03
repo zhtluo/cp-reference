@@ -5,6 +5,7 @@ struct quadric {
     int dd = (a * d + b * c) % p;
     c = cc, d = dd;
   }
+
   bool solve(int n, int p, int &x) {
     if (n == 0) return x = 0, true;
     if (p == 2) return x = 1, true;

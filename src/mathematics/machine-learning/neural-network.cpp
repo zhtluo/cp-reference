@@ -3,6 +3,7 @@ template <int ft = 3, int n = 2, int m = 3,
 struct network {
   double wp[n][m][ft /* or m, if larger */], bp[n][m], w[m],
     b, val[n][m], del[n][m], avg[ft + 1], sig[ft + 1];
+
   network() {
     std::mt19937_64 mt(time(0));
     std::uniform_real_distribution<double> urdn(
@@ -17,6 +18,7 @@ struct network {
     b = urdn(mt);
     for (int i = 0; i < ft + 1; ++i) avg[i] = sig[i] = 0;
   }
+
   double compute(double *x) {
     for (int j = 0; j < m; ++j) {
       val[0][j] = bp[0][j];
@@ -33,9 +35,12 @@ struct network {
       }
     double res = b;
     for (int i = 0; i < m; ++i) res += val[n - 1][i] * w[i];
+
     //		return 1 / (1 + exp (-res));
+
     return res;
   }
+
   void desc(double *x, double t, double eta) {
     double o = compute(x), delo = (o - t);  // * o * (1 - o)
     for (int j = 0; j < m; ++j)
@@ -60,11 +65,14 @@ struct network {
         for (int k = 0; k < m; ++k)
           wp[i][j][k] -= eta * del[i][j] * val[i - 1][k];
     b -= eta * delo;
+
     //		for (int i = 0; i < m; ++i) w[i] -= eta * delo * o
     //* (1 - o) * val[i];
+
     for (int i = 0; i < m; ++i)
       w[i] -= eta * delo * val[n - 1][i];
   }
+
   void train(double data[MAXDATA][ft + 1], int dn,
     int epoch, double eta) {
     for (int i = 0; i < ft + 1; ++i)
@@ -83,11 +91,13 @@ struct network {
       for (int test = 0; test < dn; ++test)
         desc(data[test], data[test][ft], eta);
   }
+
   double predict(double *x) {
     for (int i = 0; i < ft; ++i)
       x[i] = (x[i] - avg[i]) / sig[i];
     return compute(x) * sig[ft] + avg[ft];
   }
+
   std::string to_string() {
     std::ostringstream os;
     os << std::fixed << std::setprecision(16);
@@ -103,6 +113,7 @@ struct network {
     for (int i = 0; i < ft + 1; ++i) os << sig[i] << " ";
     return os.str();
   }
+
   void read(const std::string &str) {
     std::istringstream is(str);
     for (int i = 0; i < n; ++i)

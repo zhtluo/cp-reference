@@ -3,11 +3,13 @@ struct suffix_automaton {
   struct state {
     int len, first, cnt;
     state *parent, *go[MAXC];
+
     state(int len = 0, int first = 0, int cnt = 0)
         : len(len), first(first), cnt(cnt), parent(0) {
       std::fill(go, go + MAXC, nullptr);
     }
   } node_pool[MAXN * 2], *tot_node, *start, *null;
+
   state *extend(state *tail, int token) {
     state *p = tail;
     state *np = tail->go[token]
@@ -33,6 +35,7 @@ struct suffix_automaton {
     }
     return np == null ? np->parent : np;
   }
+
   void calc_cnt() {
     static int cnt[MAXN * 2];
     static state *list[MAXN * 2];
@@ -47,10 +50,12 @@ struct suffix_automaton {
       if (list[i]->parent)
         list[i]->parent->cnt += list[i]->cnt;
   }
+
   void init() {
     tot_node = node_pool;
     start = new (tot_node++) state();
     null = new state();
   }
+
   suffix_automaton() { init(); }
 };

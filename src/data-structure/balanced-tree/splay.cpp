@@ -2,11 +2,14 @@ template <class T>
 struct node {
   T *f, *c[2];
   int size;
+
   node() {
     f = c[0] = c[1] = nullptr;
     size = 1;
   }
+
   void push_down() {}
+
   void update() {
     size = 1;
     for (int t = 0; t < 2; ++t)
@@ -17,7 +20,9 @@ struct node {
 template <class T>
 struct reversible_node : node<T> {
   int r;
+
   reversible_node() : node<T>() { r = 0; }
+
   void push_down() {
     node<T>::push_down();
     if (r) {
@@ -26,7 +31,9 @@ struct reversible_node : node<T> {
       r = 0;
     }
   }
+
   void update() { node<T>::update(); }
+
   //! Reverse the range of this node.
 
   void reverse() {
@@ -40,12 +47,15 @@ struct tree {
   T pool[MAXSIZE + 2];
   int cap;
   T *root;
+
   T *new_node(const T &val = T()) { return &pool[cap++]; }
+
   tree() {
     cap = 0, root = new_node(), root->c[1] = new_node(),
     root->size = 2;
     root->c[1]->f = root;
   }
+
   void rotate(T *n) {
     int v = n->f->c[0] == n;
     T *p = n->f, *m = n->c[v];
@@ -55,6 +65,7 @@ struct tree {
     if (m) m->f = p;
     p->update(), n->update();
   }
+
   void splay(T *n, T *s = nullptr) {
     while (n->f != s) {
       T *m = n->f, *l = m->f;
@@ -67,13 +78,16 @@ struct tree {
     }
     if (!s) root = n;
   }
+
   int size() { return root->size - 2; }
+
   int walk(T *n, int &v, int &pos) {
     n->push_down();
     int s = n->c[0] ? n->c[0]->size : 0;
     (v = s < pos) && (pos -= s + 1);
     return s;
   }
+
   //! Insert node n to position pos.
 
   void insert(T *n, int pos) {
@@ -83,6 +97,7 @@ struct tree {
     while (walk(c, v, pos), c->c[v] && (c = c->c[v]));
     c->c[v] = n, n->f = c, splay(n);
   }
+
   //! Find the node at position pos. If sp is true, splay
   //! it.
 
@@ -94,6 +109,7 @@ struct tree {
     if (sp) splay(c);
     return c;
   }
+
   //! Find the range [posl, posr) on the splay tree.
 
   T *find_range(int posl, int posr) {
@@ -102,6 +118,7 @@ struct tree {
     if (l->c[1]) l->c[1]->push_down();
     return l->c[1];
   }
+
   //! Insert nn of size nn_size to position pos.
 
   void insert_range(T **nn, int nn_size, int pos) {
@@ -112,12 +129,14 @@ struct tree {
     for (int i = nn_size - 1; i >= 0; --i) nn[i]->update();
     l->update(), r->update(), splay(nn[nn_size - 1]);
   }
+
   void dealloc(T *n) {
     if (!n) return;
     dealloc(n->c[0]);
     dealloc(n->c[1]);
     pool.dealloc(n);
   }
+
   //! Remove from position [posl, posr).
 
   void erase_range(int posl, int posr) {

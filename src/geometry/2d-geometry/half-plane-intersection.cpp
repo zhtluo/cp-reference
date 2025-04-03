@@ -10,13 +10,16 @@ std::vector<point> cut(
   }
   return ret;
 }
+
 bool turn_left(cl l, cp p) {
   return sgn(det(l.t - l.s, p - l.s)) >= 0;
 }
+
 int cmp(cp a, cp b) {
   return a.dim() != b.dim() ? (a.dim() < b.dim() ? -1 : 1)
                             : -sgn(det(a, b));
 }
+
 std::vector<point> half_plane_intersect(
   std::vector<line> h) {
   typedef std::pair<point, line> polar;

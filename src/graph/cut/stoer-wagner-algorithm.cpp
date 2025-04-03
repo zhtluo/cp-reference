@@ -3,10 +3,12 @@ struct stoer_wagner {
   int n, edge[MAXN][MAXN];
   int dist[MAXN];
   bool vis[MAXN], bin[MAXN];
+
   stoer_wagner() {
     memset(edge, 0, sizeof(edge));
     memset(bin, false, sizeof(bin));
   }
+
   int contract(int &s, int &t) {
     memset(dist, 0, sizeof(dist));
     memset(vis, false, sizeof(vis));
@@ -29,6 +31,7 @@ struct stoer_wagner {
     }
     return mincut;
   }
+
   int solve() {
     int mincut, i, j, s, t, ans;
     for (mincut = INF, i = 1; i < n; i++) {

@@ -1,10 +1,13 @@
 struct weighted_blossom {
   static const int INF = INT_MAX, MAXN = 400;
+
   struct edge {
     int u, v, w;
+
     edge(int u = 0, int v = 0, int w = 0)
         : u(u), v(v), w(w) {}
   };
+
   int n, n_x;
   edge g[MAXN * 2 + 1][MAXN * 2 + 1];
   int lab[MAXN * 2 + 1], match[MAXN * 2 + 1],
@@ -13,20 +16,24 @@ struct weighted_blossom {
     vis[MAXN * 2 + 1];
   std::vector<int> flower[MAXN * 2 + 1];
   std::queue<int> q;
+
   int e_delta(const edge &e) {
     return lab[e.u] + lab[e.v] - g[e.u][e.v].w * 2;
   }
+
   void update_slack(int u, int x) {
     if (!slack[x] ||
       e_delta(g[u][x]) < e_delta(g[slack[x]][x]))
       slack[x] = u;
   }
+
   void set_slack(int x) {
     slack[x] = 0;
     for (int u = 1; u <= n; ++u)
       if (g[u][x].w > 0 && st[u] != x && S[st[u]] == 0)
         update_slack(u, x);
   }
+
   void q_push(int x) {
     if (x <= n)
       q.push(x);
@@ -34,12 +41,14 @@ struct weighted_blossom {
       for (size_t i = 0; i < flower[x].size(); i++)
         q_push(flower[x][i]);
   }
+
   void set_st(int x, int b) {
     st[x] = b;
     if (x > n)
       for (size_t i = 0; i < flower[x].size(); ++i)
         set_st(flower[x][i], b);
   }
+
   int get_pr(int b, int xr) {
     int pr =
       std::find(flower[b].begin(), flower[b].end(), xr) -
@@ -50,6 +59,7 @@ struct weighted_blossom {
     } else
       return pr;
   }
+
   void set_match(int u, int v) {
     match[u] = g[u][v].v;
     if (u > n) {
@@ -62,6 +72,7 @@ struct weighted_blossom {
         flower[u].end());
     }
   }
+
   void augment(int u, int v) {
     for (;;) {
       int xnv = st[match[u]];
@@ -71,6 +82,7 @@ struct weighted_blossom {
       u = st[pa[xnv]], v = xnv;
     }
   }
+
   int get_lca(int u, int v) {
     static int t = 0;
     for (++t; u || v; std::swap(u, v)) {
@@ -82,6 +94,7 @@ struct weighted_blossom {
     }
     return 0;
   }
+
   void add_blossom(int u, int lca, int v) {
     int b = n + 1;
     while (b <= n_x && st[b]) ++b;
@@ -114,6 +127,7 @@ struct weighted_blossom {
     }
     set_slack(b);
   }
+
   void expand_blossom(int b) {
     for (size_t i = 0; i < flower[b].size(); ++i)
       set_st(flower[b][i], flower[b][i]);
@@ -133,6 +147,7 @@ struct weighted_blossom {
     }
     st[b] = 0;
   }
+
   bool on_found_edge(const edge &e) {
     int u = st[e.u], v = st[e.v];
     if (S[v] == -1) {
@@ -149,6 +164,7 @@ struct weighted_blossom {
     }
     return false;
   }
+
   bool matching() {
     memset(S + 1, -1, sizeof(int) * n_x);
     memset(slack + 1, 0, sizeof(int) * n_x);
@@ -206,6 +222,7 @@ struct weighted_blossom {
     }
     return false;
   }
+
   std::pair<long long, int> solve() {
     memset(match + 1, 0, sizeof(int) * n);
     n_x = n;
@@ -226,6 +243,7 @@ struct weighted_blossom {
         tot_weight += g[u][match[u]].w;
     return std::make_pair(tot_weight, n_matches);
   }
+
   void init() {
     for (int u = 1; u <= n; ++u)
       for (int v = 1; v <= n; ++v) g[u][v] = edge(u, v, 0);

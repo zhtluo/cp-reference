@@ -1,30 +1,40 @@
 struct perm {
   std::vector<int> P;
+
   perm() {}
+
   perm(int n) { P.resize(n); }
+
   perm inv() const {
     perm ret(P.size());
     for (int i = 0; i < int(P.size()); ++i) ret.P[P[i]] = i;
     return ret;
   }
+
   int &operator[](const int &dn) { return P[dn]; }
+
   void resize(const size_t &sz) { P.resize(sz); }
+
   size_t size() const { return P.size(); }
+
   const int &operator[](const int &dn) const {
     return P[dn];
   }
 };
+
 perm operator*(const perm &a, const perm &b) {
   perm ret(a.size());
   for (int i = 0; i < (int)a.size(); ++i) ret[i] = b[a[i]];
   return ret;
 }
+
 typedef std::vector<perm> bucket;
 typedef std::vector<int> table;
 typedef std::pair<int, int> pii;
 int n, m;
 std::vector<bucket> buckets, buckets_i;
 std::vector<table> lookup_table;
+
 int fast_filter(const perm &g, bool add = true) {
   int n = buckets.size();
   perm p(g);
@@ -42,14 +52,17 @@ int fast_filter(const perm &g, bool add = true) {
   }
   return -1;
 }
+
 long long calc_total_size() {
   long long res = 1;
   for (int i = 0; i < n; ++i) res *= buckets[i].size();
   return res;
 }
+
 bool in_group(const perm &g) {
   return fast_filter(g, false) == -1;
 }
+
 void solve(const bucket &gen, int _n) {
   n = _n, m = gen.size();
   std::vector<bucket> _buckets(n);

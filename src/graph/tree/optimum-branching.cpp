@@ -2,10 +2,12 @@ template <int MAXN = 1000>
 struct optimum_branching {
   int from[MAXN][MAXN * 2], n, m, edge[MAXN][MAXN * 2];
   int sel[MAXN * 2], fa[MAXN * 2], vis[MAXN * 2];
+
   int getfa(int x) {
     if (x == fa[x]) return x;
     return fa[x] = getfa(fa[x]);
   }
+
   void liuzhu() {
     fa[1] = 1;
     for (int i = 2; i <= n; ++i) {

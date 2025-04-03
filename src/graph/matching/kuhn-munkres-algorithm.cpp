@@ -3,6 +3,7 @@ struct kuhn_munkres {
   int n, w[MAXN][MAXN], lx[MAXN], ly[MAXN], m[MAXN],
     way[MAXN], sl[MAXN];
   bool u[MAXN];
+
   void hungary(int x) {
     m[0] = x;
     int j0 = 0;
@@ -38,6 +39,7 @@ struct kuhn_munkres {
       j0 = j1;
     } while (j0);
   }
+
   int solve() {
     for (int i = 1; i <= n; ++i)
       m[i] = lx[i] = ly[i] = way[i] = 0;

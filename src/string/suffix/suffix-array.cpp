@@ -1,9 +1,11 @@
 template <int MAXN = 1000000, int MAXC = 26>
 struct suffix_array {
   int rk[MAXN], height[MAXN], sa[MAXN];
+
   int cmp(int *x, int a, int b, int d) {
     return x[a] == x[b] && x[a + d] == x[b + d];
   }
+
   void doubling(int *a, int n) {
     static int sRank[MAXN], tmpA[MAXN], tmpB[MAXN];
     int m = MAXC, *x = tmpA, *y = tmpB;
@@ -30,6 +32,7 @@ struct suffix_array {
           cmp(y, sa[i], sa[i - 1], d) ? p - 1 : p++;
     }
   }
+
   void solve(int *a, int n) {
     a[n] = -1;
     doubling(a, n);

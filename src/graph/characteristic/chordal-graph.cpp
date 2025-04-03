@@ -3,14 +3,18 @@ struct chordal_graph {
   int n;
   edge_list<MAXN, MAXM> e;
   int id[MAXN], seq[MAXN];
+
   void init() {
     struct point {
       int lab, u;
+
       point(int lab = 0, int u = 0) : lab(lab), u(u) {}
+
       bool operator<(const point &a) const {
         return lab < a.lab;
       }
     };
+
     std::fill(id, id + n, -1);
     static int label[MAXN];
     std::fill(label, label + n, 0);
@@ -27,6 +31,7 @@ struct chordal_graph {
     }
     for (int i = 0; i < n; ++i) seq[id[i]] = i;
   }
+
   bool is_chordal() {
     static int vis[MAXN], q[MAXN];
     std::fill(vis, vis + n, -1);
@@ -45,6 +50,7 @@ struct chordal_graph {
     }
     return 1;
   }
+
   int min_color() {
     int res = 0;
     static int vis[MAXN], c[MAXN];

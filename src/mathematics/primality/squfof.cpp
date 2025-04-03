@@ -1,6 +1,7 @@
 namespace NT {
 typedef unsigned int l;
 typedef unsigned long long ll;
+
 inline ll mul(ll const &a, ll const &b, ll const &mod) {
   ll ret =
     a * (ll)b - (ll)((long double)a * b / mod - 1.1) * mod;
@@ -10,6 +11,7 @@ inline ll mul(ll const &a, ll const &b, ll const &mod) {
     ret %= mod;
   return ret;
 }
+
 inline ll pow(ll const &a, ll const &b, ll const &mod) {
   ll ret = 1, base = a;
   for (l i = 0; b >> i; ++i) {
@@ -18,6 +20,7 @@ inline ll pow(ll const &a, ll const &b, ll const &mod) {
   }
   return ret;
 }
+
 bool miller_rabin_single(ll const &x, ll base) {
   if (x < 4) return x > 1;
   if (x % 2 == 0) return false;
@@ -33,6 +36,7 @@ bool miller_rabin_single(ll const &x, ll base) {
   }
   return false;
 }
+
 bool miller_rabin_multi(ll const &x, ...) {
   va_list args;
   va_start(args, x);
@@ -43,6 +47,7 @@ bool miller_rabin_multi(ll const &x, ...) {
   va_end(args);
   return ret;
 }
+
 bool miller_rabin(ll const &x) {
   if (x < 316349281)
     return miller_rabin_multi(x, 11000544, 31481107, 0);
@@ -51,19 +56,23 @@ bool miller_rabin(ll const &x) {
   return miller_rabin_multi(
     x, 2, 325, 9375, 28178, 450775, 9780504, 1795265022, 0);
 }
+
 ll isqrt(ll const &x) {
   ll ret = (ll)(sqrtl(x));
   while (ret > 0 && ret * ret > x) --ret;
   while (x - ret * ret > 2 * ret) ++ret;
   return ret;
 }
+
 ll icbrt(ll const &x) {
   ll ret = (ll)(cbrt(x));
   while (ret > 0 && ret * ret * ret > x) --ret;
   while (x - ret * ret * ret > 3 * ret * (ret + 1)) ++ret;
   return ret;
 }
+
 std::vector<l> saved;
+
 ll squfof_iter_better(ll const &x, ll const &k,
   ll const &it_max, l cutoff_div) {
   if (std::__gcd((ll)k, x) != 1)
@@ -137,6 +146,7 @@ ll squfof_iter_better(ll const &x, ll const &k,
   if (factor == x) factor = 1;
   return factor;
 }
+
 ll squfof(ll const &x) {
   static l multipliers[16] = {1, 3, 5, 7, 11, 15, 21, 33,
     35, 55, 77, 105, 165, 231, 385, 1155};
@@ -155,11 +165,10 @@ ll squfof(ll const &x) {
   }
   return 1;
 }
-#define trial(i)       \
-  while (x % i == 0) { \
-    x /= i;            \
-    ret.push_back(i);  \
-  }
+
+#define trial(i) \
+  while (x % i == 0) x /= i, ret.push_back(i);
+
 std::vector<ll> factorize(ll x) {
   std::vector<ll> ret;
   const l trial_limit = 5000;

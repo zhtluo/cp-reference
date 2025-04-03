@@ -1,6 +1,7 @@
 template <int MAXN = 200000, int MAXK = 2>
 struct kd_tree {
   int k, size;
+
   struct point {
     int data[MAXK], id;
   } p[MAXN];
@@ -8,9 +9,12 @@ struct kd_tree {
   struct kd_node {
     int l, r;
     point p, dmin, dmax;
+
     kd_node() {}
+
     kd_node(const point &rhs)
         : l(-1), r(-1), p(rhs), dmin(rhs), dmax(rhs) {}
+
     void merge(const kd_node &rhs, int k) {
       for (register int i = 0; i < k; ++i) {
         dmin.data[i] =
@@ -19,6 +23,7 @@ struct kd_tree {
           std::max(dmax.data[i], rhs.dmax.data[i]);
       }
     }
+
     long long min_dist(const point &rhs, int k) const {
       register long long ret = 0;
       for (register int i = 0; i < k; ++i) {
@@ -36,6 +41,7 @@ struct kd_tree {
       }
       return ret;
     }
+
     long long max_dist(const point &rhs, int k) {
       long long ret = 0;
       for (int i = 0; i < k; ++i) {
@@ -56,18 +62,23 @@ struct kd_tree {
   struct result {
     long long dist;
     point d;
+
     result() {}
+
     result(const long long &dist, const point &d)
         : dist(dist), d(d) {}
+
     bool operator>(const result &rhs) const {
       return dist > rhs.dist ||
         (dist == rhs.dist && d.id > rhs.d.id);
     }
+
     bool operator<(const result &rhs) const {
       return dist < rhs.dist ||
         (dist == rhs.dist && d.id < rhs.d.id);
     }
   };
+
   long long sqrdist(const point &a, const point &b) {
     long long ret = 0;
     for (int i = 0; i < k; ++i)

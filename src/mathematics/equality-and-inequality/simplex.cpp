@@ -5,6 +5,7 @@ struct simplex {
   bool infeasible, unbounded;
   double v, an[MAXN + MAXM];
   int q[MAXN + MAXM];
+
   void pivot(int l, int e) {
     std::swap(q[e], q[l + n]);
     double t = a[l][e];
@@ -25,6 +26,7 @@ struct simplex {
       for (int j = 0; j < n; ++j) c[j] -= t * a[l][j];
     }
   }
+
   bool pre() {
     for (int l, e;;) {
       l = e = -1;
@@ -37,6 +39,7 @@ struct simplex {
       pivot(l, e);
     }
   }
+
   double solve() {
     double p;
     std::fill(q, q + n + m, -1);

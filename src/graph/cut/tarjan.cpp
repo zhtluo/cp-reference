@@ -2,6 +2,7 @@ template <int MAXN = 1000000, int MAXM = 1000000>
 struct tarjan {
   int comp[MAXN], size;
   int dfn[MAXN], ind, low[MAXN], ins[MAXN], stk[MAXN], stks;
+
   void dfs(const edge_list<MAXN, MAXM> &e, int i) {
     dfn[i] = low[i] = ind++;
     ins[i] = 1;
@@ -20,6 +21,7 @@ struct tarjan {
       ++size;
     }
   }
+
   void solve(const edge_list<MAXN, MAXM> &e, int n) {
     size = ind = stks = 0;
     std::fill(dfn, dfn + n, -1);
@@ -27,10 +29,12 @@ struct tarjan {
       if (!~dfn[i]) dfs(e, i);
   }
 };
+
 template <int MAXN = 1000000, int MAXM = 1000000>
 struct vb_component {
   int comp[MAXM], size;
   int dfn[MAXN], ind, low[MAXN], stk[MAXM], stks;
+
   void dfs(const edge_list<MAXN, MAXM> &e, int i, int fa) {
     dfn[i] = low[i] = ind++;
     for (int x = e.begin[i]; ~x; x = e.next[x]) {
@@ -50,6 +54,7 @@ struct vb_component {
       }
     }
   }
+
   void solve(const edge_list<MAXN, MAXM> &e, int n) {
     size = ind = stks = 0;
     std::fill(dfn, dfn + n, -1);
@@ -57,10 +62,12 @@ struct vb_component {
       if (!~dfn[i]) dfs(e, i, -1);
   }
 };
+
 template <int MAXN = 1000000, int MAXM = 1000000>
 struct eb_component {
   int comp[MAXN], size;
   int dfn[MAXN], ind, low[MAXN], stk[MAXM], stks;
+
   void dfs(const edge_list<MAXN, MAXM> &e, int i, int fa) {
     dfn[i] = low[i] = ind++;
     stk[stks++] = i;
@@ -78,6 +85,7 @@ struct eb_component {
       ++size;
     }
   }
+
   void solve(const edge_list<MAXN, MAXM> &e, int n) {
     size = ind = stks = 0;
     std::fill(dfn, dfn + n, -1);

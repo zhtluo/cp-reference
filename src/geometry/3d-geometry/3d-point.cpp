@@ -1,34 +1,45 @@
 #define cp3 const point3&
+
 struct point3 {
   double x, y, z;
+
   explicit point3(cd x = 0, cd y = 0, cd z = 0)
       : x(x), y(y), z(z) {}
 };
+
 point3 operator+(cp3 a, cp3 b) {
   return point3(a.x + b.x, a.y + b.y, a.z + b.z);
 }
+
 point3 operator-(cp3 a, cp3 b) {
   return point3(a.x - b.x, a.y - b.y, a.z - b.z);
 }
+
 point3 operator*(cp3 a, cd b) {
   return point3(a.x * b, a.y * b, a.z * b);
 }
+
 point3 operator/(cp3 a, cd b) {
   return point3(a.x / b, a.y / b, a.z / b);
 }
+
 double dot(cp3 a, cp3 b) {
   return a.x * b.x + a.y * b.y + a.z * b.z;
 }
+
 point3 det(cp3 a, cp3 b) {
   return point3(a.y * b.z - a.z * b.y,
     -a.x * b.z + a.z * b.x, a.x * b.y - a.y * b.x);
 }
+
 double dis2(cp3 a, cp3 b = point3()) {
   return sqr(a.x - b.x) + sqr(a.y - b.y) + sqr(a.z - b.z);
 }
+
 double dis(cp3 a, cp3 b = point3()) {
   return msqrt(dis2(a, b));
 }
+
 point3 rotate(cp3 p, cp3 axis, double w) {
   double x = axis.x, y = axis.y, z = axis.z;
   double s = x * x + y * y + z * z, ss = msqrt(s),

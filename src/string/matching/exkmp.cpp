@@ -7,6 +7,7 @@ void exkmp(char *s, int *a, int n) {
     if (r < i + a[i]) r = i + a[i], p = i;
   }
 }
+
 void mat(char *s, char *t, int *a, int *b, int n, int m) {
   exkmp(t, b, m);
   int p = 0, r = 0;

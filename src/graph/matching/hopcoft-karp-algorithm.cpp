@@ -1,6 +1,7 @@
 template <int MAXN = 100000, int MAXM = 100000>
 struct hopcoft_karp {
   int mx[MAXN], my[MAXM], lv[MAXN];
+
   bool dfs(edge_list<MAXN, MAXM> &e, int x) {
     for (int i = e.begin[x]; ~i; i = e.next[i]) {
       int y = e.dest[i], w = my[y];
@@ -13,6 +14,7 @@ struct hopcoft_karp {
     lv[x] = -1;
     return false;
   }
+
   int solve(edge_list<MAXN, MAXM> &e, int n, int m) {
     std::fill(mx, mx + n, -1);
     std::fill(my, my + m, -1);

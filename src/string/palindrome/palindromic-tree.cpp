@@ -3,17 +3,21 @@ struct palindromic_tree {
   struct node {
     node *child[MAXC], *fail;
     int len;
+
     node(int len) : fail(NULL), len(len) {
       memset(child, NULL, sizeof(child));
     }
   } node_pool[MAXN * 2], *tot_node;
+
   int size, text[MAXN];
   node *odd, *even, *last;
+
   node *match(node *now) {
     for (; text[size - now->len - 1] != text[size];
       now = now->fail);
     return now;
   }
+
   bool extend(int token) {
     text[++size] = token;
     node *now = match(last);
@@ -29,6 +33,7 @@ struct palindromic_tree {
     }
     return true;
   }
+
   void init() {
     text[size = 0] = -1;
     tot_node = node_pool;
@@ -36,5 +41,6 @@ struct palindromic_tree {
     odd = new (tot_node++) node(-1);
     even->fail = odd;
   }
+
   palindromic_tree() { init(); }
 };

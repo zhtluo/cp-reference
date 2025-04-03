@@ -2,6 +2,7 @@ template <int MAXN = 100000, int MAXM = 100000>
 struct dominator_tree {
   int dfn[MAXN], sdom[MAXN], idom[MAXN], id[MAXN], f[MAXN],
     fa[MAXN], smin[MAXN], stamp;
+
   void predfs(int x, const edge_list<MAXN, MAXM> &succ) {
     id[dfn[x] = stamp++] = x;
     for (int i = succ.begin[x]; ~i; i = succ.next[i]) {
@@ -12,6 +13,7 @@ struct dominator_tree {
       }
     }
   }
+
   int getfa(int x) {
     if (fa[x] == x) return x;
     int ret = getfa(fa[x]);
@@ -19,6 +21,7 @@ struct dominator_tree {
       smin[x] = smin[fa[x]];
     return fa[x] = ret;
   }
+
   void solve(
     int s, int n, const edge_list<MAXN, MAXM> &succ) {
     std::fill(dfn, dfn + n, -1);

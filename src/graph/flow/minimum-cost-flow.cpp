@@ -3,11 +3,14 @@ struct minimum_cost_flow {
   struct cost_flow_edge_list {
     int size, begin[MAXN], dest[MAXM], next[MAXM],
       cost[MAXM], flow[MAXM];
+
     void clear(int n) {
       size = 0;
       std::fill(begin, begin + n, -1);
     }
+
     cost_flow_edge_list(int n = MAXN) { clear(n); }
+
     void add_edge(int u, int v, int c, int f) {
       dest[size] = v;
       next[size] = begin[u];
@@ -21,7 +24,9 @@ struct minimum_cost_flow {
       begin[v] = size++;
     }
   };
+
   int n, s, t, prev[MAXN], dist[MAXN], occur[MAXN];
+
   bool augment(cost_flow_edge_list &e) {
     std::vector<int> queue;
     std::fill(dist, dist + n, INF);
@@ -46,6 +51,7 @@ struct minimum_cost_flow {
     }
     return dist[t] < INF;
   }
+
   std::pair<int, int> solve(
     cost_flow_edge_list &e, int n_, int s_, int t_) {
     n = n_;
@@ -66,16 +72,20 @@ struct minimum_cost_flow {
     return ans;
   }
 };
+
 template <int MAXN = 1000, int MAXM = 100000>
 struct zkw_flow {
   struct cost_flow_edge_list {
     int size, begin[MAXN], dest[MAXM], next[MAXM],
       cost[MAXM], flow[MAXM];
+
     void clear(int n) {
       size = 0;
       std::fill(begin, begin + n, -1);
     }
+
     cost_flow_edge_list(int n = MAXN) { clear(n); }
+
     void add_edge(int u, int v, int c, int f) {
       dest[size] = v;
       next[size] = begin[u];
@@ -89,7 +99,9 @@ struct zkw_flow {
       begin[v] = size++;
     }
   };
+
   int n, s, t, tf, tc, dis[MAXN], slack[MAXN], visit[MAXN];
+
   int modlable() {
     int delta = INF;
     for (int i = 0; i < n; i++) {
@@ -101,6 +113,7 @@ struct zkw_flow {
       if (visit[i]) dis[i] += delta;
     return 0;
   }
+
   int dfs(cost_flow_edge_list &e, int x, int flow) {
     if (x == t) {
       tf += flow;
@@ -127,6 +140,7 @@ struct zkw_flow {
       }
     return flow - left;
   }
+
   std::pair<int, int> solve(
     cost_flow_edge_list &e, int n_, int s_, int t_) {
     n = n_;

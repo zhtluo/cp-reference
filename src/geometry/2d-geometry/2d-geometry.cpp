@@ -2,16 +2,22 @@
 
 struct point {
   double x, y;
+
   explicit point(cd x = 0, cd y = 0) : x(x), y(y) {}
+
   int dim() const {
     return sgn(y) == 0 ? sgn(x) > 0 : sgn(y) > 0;
   }
+
   point unit() const {
     double l = msqrt(x * x + y * y);
     return point(x / l, y / l);
   }
+
   point rot90() const { return point(-y, x); }
+
   point _rot90() const { return point(y, -x); }
+
   point rot(cd t) const {
     double c = cos(t), s = sin(t);
     return point(x * c - y * s, x * s + y * c);
@@ -65,6 +71,7 @@ double dis(cp a, cp b = point()) {
 
 struct line {
   point s, t;
+
   explicit line(cp s = point(), cp t = point())
       : s(s), t(t) {}
 };
@@ -138,6 +145,7 @@ double polygon_area(const std::vector<point> &a) {
 struct circle {
   point c;
   double r;
+
   explicit circle(point c = point(), double r = 0)
       : c(c), r(r) {}
 };

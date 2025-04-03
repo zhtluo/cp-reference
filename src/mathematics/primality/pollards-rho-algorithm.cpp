@@ -1,6 +1,7 @@
 struct pollard_rho {
   miller_rabin is_prime;
   const long long thr = 13E9;
+
   long long factor(
     const long long &n, const long long &seed) {
     long long x = rand() % (n - 1) + 1, y = x;
@@ -16,6 +17,7 @@ struct pollard_rho {
       }
     }
   }
+
   void search(
     const long long &n, std::vector<long long> &div) {
     if (n > 1) {
@@ -30,6 +32,7 @@ struct pollard_rho {
       }
     }
   }
+
   std::vector<long long> solve(const long long &n) {
     std::vector<long long> ans;
     if (n > thr)

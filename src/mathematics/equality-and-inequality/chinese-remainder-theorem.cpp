@@ -2,6 +2,7 @@ struct crt {
   long long fix(const long long &a, const long long &b) {
     return (a % b + b) % b;
   }
+
   bool solve(
     const std::vector<std::pair<long long, long long>> &in,
     std::pair<long long, long long> &out) {

@@ -1,4 +1,5 @@
 const int N = 100000 + 5, MAX_TRIS = N * 6;
+
 bool in_circumcircle(cp p1, cp p2, cp p3, cp p4) {
   double u11 = p1.x - p4.x, u21 = p2.x - p4.x,
          u31 = p3.x - p4.x;
@@ -15,59 +16,75 @@ bool in_circumcircle(cp p1, cp p2, cp p3, cp p4) {
     u11 * u22 * u33;
   return sgn(det) > 0;
 }
+
 double side(cp a, cp b, cp p) {
   return (b.x - a.x) * (p.y - a.y) -
     (b.y - a.y) * (p.x - a.x);
 }
+
 typedef int side_t;
 struct tri;
 typedef tri *tri_r;
+
 struct edge {
   tri_r t;
   side_t side;
+
   edge(tri_r t = 0, side_t side = 0) : t(t), side(side) {}
 };
+
 struct tri {
   point p[3];
   edge e[3];
   tri_r child[3];
+
   tri() {}
+
   tri(cp p0, cp p1, cp p2) {
     p[0] = p0;
     p[1] = p1;
     p[2] = p2;
     child[0] = child[1] = child[2] = 0;
   }
+
   bool has_child() const { return child[0] != 0; }
+
   int num_child() const {
     return child[0] == 0 ? 0
       : child[1] == 0    ? 1
       : child[2] == 0    ? 2
                          : 3;
   }
+
   bool contains(cp q) const {
     double a = side(p[0], p[1], q), b = side(p[1], p[2], q),
            c = side(p[2], p[0], q);
     return sgn(a) >= 0 && sgn(b) >= 0 && sgn(c) >= 0;
   }
 };
+
 void set_edge(edge a, edge b) {
   if (a.t) a.t->e[a.side] = b;
   if (b.t) b.t->e[b.side] = a;
 }
+
 class trig {
  public:
   tri tpool[MAX_TRIS], *tot;
+
   trig() {
     const double LOTS = 1E6;
     the_root = new (tot++) tri(point(-LOTS, -LOTS),
       point(LOTS, -LOTS), point(0, LOTS));
   }
+
   tri_r find(cp p) const { return find(the_root, p); }
+
   void add_point(cp p) { add_point(find(the_root, p), p); }
 
  private:
   tri_r the_root;
+
   static tri_r find(tri_r root, cp p) {
     for (;;) {
       if (!root->has_child())
@@ -80,6 +97,7 @@ class trig {
           }
     }
   }
+
   void add_point(tri_r root, cp p) {
     tri_r tab, tbc, tca;
     tab = new (tot++) tri(root->p[0], root->p[1], p);
@@ -98,6 +116,7 @@ class trig {
     flip(tbc, 2);
     flip(tca, 2);
   }
+
   void flip(tri_r t, side_t pi) {
     tri_r trj = t->e[pi].t;
     int pj = t->e[pi].side;
@@ -126,6 +145,7 @@ class trig {
     flip(trl, 2);
   }
 };
+
 void build(std::vector<point> ps, trig &t) {
   t.tot = t.tpool;
   std::random_shuffle(ps.begin(), ps.end());
