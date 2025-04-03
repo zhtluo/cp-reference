@@ -2,6 +2,8 @@
 
 This competitive programming reference is based on my ICPC reference which my team used during my college years of 2016--2020 in Shanghai Jiao Tong University. We had the honor to win a Silver Medal in [ICPC World Final 2018](https://cphof.org/standings/icpc/2018).
 
+Colloquially, it has been known as the "Magic Reference", which is the name before the remake.
+
 ## Download
 
 Every release of the PDF file will be available under the [release](https://github.com/zhtluo/cp-reference/releases).
@@ -43,6 +45,12 @@ In contrast, this reference is geared towards more advanced teams seeking to par
 - more content (roughly 20% more lines of code!)
 - slightly better code highlighting
 - more advanced algorithms (e.g. general weighted matching)
+
+## Credit
+
+Given that the bulk of the codebase is comprised ten years ago, similar to other competitive programming references, it is a bit difficult to find the exact author for each piece of code: some comes from me, some comes from earlier teams of Shanghai Jiao Tong University, and some probably come from online sources around that time.
+
+If you happen to know the credit of anything in this reference, I would be more than happy to note it or connect with the original author. Let me know!
 
 ## Todo List
 
